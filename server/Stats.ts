@@ -52,7 +52,7 @@ let STATS: Stats = {
 
 const incrementStat = (stat: STAT, inc: number): boolean => {
   if (
-    !STATS[stat] ||
+    STATS[stat] === undefined ||
     stat === "pickedColors" ||
     STATS[stat] + inc < 0 ||
     STATS[stat] + inc >= Number.POSITIVE_INFINITY
@@ -65,7 +65,7 @@ const incrementStat = (stat: STAT, inc: number): boolean => {
 
 const decrementStat = (stat: STAT, dec: number): boolean => {
   if (
-    !STATS[stat] ||
+    STATS[stat] === undefined ||
     stat === "pickedColors" ||
     STATS[stat] - dec < 0 ||
     STATS[stat] - dec >= Number.POSITIVE_INFINITY
@@ -78,7 +78,7 @@ const decrementStat = (stat: STAT, dec: number): boolean => {
 
 const incrementPickedColors = (color: "red" | "blue" | "green" | "yellow", inc: number): boolean => {
   if (
-    !STATS.pickedColors[color] ||
+    STATS.pickedColors[color] == undefined ||
     STATS.pickedColors[color] + inc < 0 ||
     STATS.pickedColors[color] + inc >= Number.POSITIVE_INFINITY
   )
@@ -90,7 +90,7 @@ const incrementPickedColors = (color: "red" | "blue" | "green" | "yellow", inc: 
 
 const decrementPickedColors = (color: "red" | "blue" | "green" | "yellow", dec: number): boolean => {
   if (
-    !STATS.pickedColors[color] ||
+    STATS.pickedColors[color] == undefined ||
     STATS.pickedColors[color] - dec < 0 ||
     STATS.pickedColors[color] - dec >= Number.POSITIVE_INFINITY
   )
