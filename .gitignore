@@ -3,6 +3,8 @@ node_modules
 **/dist
 build
 
+# github token
+githubToken.js
 
 # local env files
 .env.local

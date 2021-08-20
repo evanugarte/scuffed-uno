@@ -100,8 +100,11 @@ const decrementPickedColors = (color: "red" | "blue" | "green" | "yellow", dec: 
   return true;
 };
 
+const token = process.env.NODE_ENV === "production" ? process.env.GITHUB_TOKEN : require("../githubToken.js");
+console.log(token);
+
 // update stats github gist
-const octokit = new Octokit({ auth: "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" });
+const octokit = new Octokit({ auth: token });
 
 setInterval(async () => {
   let cloud: Stats = JSON.parse(
