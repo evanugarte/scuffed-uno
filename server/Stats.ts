@@ -123,8 +123,8 @@ setInterval(async () => {
   if (cloud.lobbiesOnline === undefined) return console.log("Empty cloud");
 
   const total: Stats = {
-    lobbiesOnline: STATS.lobbiesOnline + cloud.lobbiesOnline,
-    playersOnline: STATS.playersOnline + cloud.playersOnline,
+    lobbiesOnline: STATS.lobbiesOnline,
+    playersOnline: STATS.playersOnline,
     totalVisits: STATS.totalVisits + cloud.totalVisits,
     lobbiesCreated: STATS.lobbiesCreated + cloud.lobbiesCreated,
     gamesPlayed: STATS.gamesPlayed + cloud.gamesPlayed,
