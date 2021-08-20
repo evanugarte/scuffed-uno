@@ -2,6 +2,7 @@ import { Socket } from "socket.io";
 import { Card, CardColor, CardType } from "./Card";
 import Player from "./Player";
 import { Room, Settings } from "./Room";
+import { decrementStat, incrementPickedColors, incrementStat } from "./Stats";
 
 const players: { [index: string]: Player } = {};
 const rooms: { [index: string]: Room } = {};
@@ -50,6 +51,9 @@ export default function(socket: Socket) {
   const player = new Player(socket);
   players[socket.id] = player;
 
+  incrementStat("playersOnline", 1);
+  incrementStat("totalVisits", 1);
+
   const leaveRoom = () => {
     if (!player.inRoom) return;
 
@@ -62,6 +66,7 @@ export default function(socket: Socket) {
   socket.on("disconnect", () => {
     updatePublicRoomPlayerCount(player, -1);
     leaveRoom();
+    decrementStat("playersOnline", 1);
 
     delete players[socket.id];
   });
@@ -172,6 +177,8 @@ export default function(socket: Socket) {
     )
       return;
 
+    incrementStat("unosCalled", 1);
+
     player.hasCalledUno = true;
     rooms[player.roomId].broadcastState();
   });
@@ -193,6 +200,23 @@ export default function(socket: Socket) {
     if (card.type === CardType.Plus4 || card.type === CardType.Wildcard) {
       if (color !== undefined && color >= CardColor.Red && color <= CardColor.Blue) {
         card.color = color;
+
+        switch (color) {
+          case CardColor.Red:
+            incrementPickedColors("red", 1);
+            break;
+          case CardColor.Blue:
+            incrementPickedColors("blue", 1);
+            break;
+          case CardColor.Green:
+            incrementPickedColors("green", 1);
+            break;
+          case CardColor.Yellow:
+            incrementPickedColors("yellow", 1);
+            break;
+          default:
+            break;
+        }
       } else {
         return;
       }

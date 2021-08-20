@@ -2,6 +2,7 @@ import { v4 as uuid } from "uuid";
 import { Card, CardColor, CardType } from "./Card";
 import Deck from "./Deck";
 import Player from "./Player";
+import { decrementStat, incrementStat } from "./Stats";
 
 export interface Settings {
   stacking: boolean;
@@ -61,6 +62,9 @@ export class Room implements RoomInterface {
     this.turn = host;
     this.settings = settings;
     this.addPlayer(host);
+
+    incrementStat("lobbiesCreated", 1);
+    incrementStat("lobbiesOnline", 1);
   }
 
   addPlayer(player: Player) {
@@ -75,6 +79,7 @@ export class Room implements RoomInterface {
     const players = this.players.filter((p) => !p.bot && p.id !== player.id);
     if (players.length === 0) {
       this.isRoomEmpty = true;
+      decrementStat("lobbiesOnline", 1);
     } else if (this.host.id === player.id) {
       this.host = players[Math.floor(Math.random() * players.length)];
     }
@@ -231,6 +236,8 @@ export class Room implements RoomInterface {
     )
       return;
 
+    incrementStat("cardsPlayed", 1);
+
     // reset wildcard
     this.wildcard = null;
 
@@ -255,6 +262,8 @@ export class Room implements RoomInterface {
         }
         break;
       case CardType.Plus4:
+        incrementStat("plus4sDealt", 1);
+
         if (nextPlayer.cards.findIndex((c) => c.type === CardType.Plus4) !== -1) {
           nextPlayer.mustStack = true;
           this.stack += 4;
@@ -324,7 +333,7 @@ export class Room implements RoomInterface {
     this.checkForWinner();
     this.broadcastState();
 
-    if (this.winner) return;
+    if (this.winner) return incrementStat("gamesPlayed", 1);
 
     if (this.turn.bot) {
       this.turn.botPlay(this);
@@ -454,6 +463,8 @@ export class Room implements RoomInterface {
     bot.username = `Bot ${botNames[Math.floor(Math.random() * botNames.length)]}`;
 
     if (player) bot.cards = [...player.cards];
+
+    incrementStat("botsUsed", 1);
 
     return bot;
   }
