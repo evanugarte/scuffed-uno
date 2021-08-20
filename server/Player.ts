@@ -2,6 +2,7 @@ import { Socket } from "socket.io";
 import { v4 as uuid } from "uuid";
 import { Card, CardColor, CardType } from "./Card";
 import { Room } from "./Room";
+import { incrementPickedColors } from "./Stats";
 
 interface PlayerInterface {
   id: string;
@@ -111,6 +112,23 @@ export default class Player implements PlayerInterface {
         room.broadcastState();
         await sleep(2000);
         card.color = Math.floor(Math.random() * 4);
+
+        switch (card.color) {
+          case CardColor.Red:
+            incrementPickedColors("red", 1);
+            break;
+          case CardColor.Blue:
+            incrementPickedColors("blue", 1);
+            break;
+          case CardColor.Green:
+            incrementPickedColors("green", 1);
+            break;
+          case CardColor.Yellow:
+            incrementPickedColors("yellow", 1);
+            break;
+          default:
+            break;
+        }
       }
 
       if (this.cards.length === 2 && Math.random() > 0.3) {
