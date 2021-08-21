@@ -241,6 +241,10 @@ export default {
       >made by <span>Freddie</span></a
     >
 
+    <router-link class="watermark stats-link" to="/stats"
+      >Global Stats
+    </router-link>
+
     <header class="header">
       <img
         v-if="currentLevel === 'main'"
@@ -452,6 +456,12 @@ $mobile: 900px;
   bottom: 1.5vh;
   right: 1.1vw;
   font-weight: bold;
+
+  &.stats-link {
+    left: 1.1vw;
+    right: unset;
+    text-decoration: underline;
+  }
 
   span {
     text-decoration: underline;
