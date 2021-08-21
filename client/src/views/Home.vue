@@ -241,8 +241,8 @@ export default {
       >made by <span>Freddie</span></a
     >
 
-    <router-link class="watermark stats-link" to="/stats"
-      >Global Stats
+    <router-link class="watermark stats-link" to="/stats">
+      Global Stats
     </router-link>
 
     <header class="header">
