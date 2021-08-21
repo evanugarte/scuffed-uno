@@ -1,4 +1,4 @@
-import { Octokit } from "octokit";
+import { fetchStats, writeStats } from "../modules/github";
 
 type STAT =
   | "lobbiesOnline"
@@ -100,26 +100,10 @@ const decrementPickedColors = (color: "red" | "blue" | "green" | "yellow", dec: 
   return true;
 };
 
-const token = process.env.NODE_ENV === "production" ? process.env.GITHUB_TOKEN : require("../githubToken.js");
-console.log(token);
-
 // update stats github gist
-const octokit = new Octokit({ auth: token });
 
 setInterval(async () => {
-  let cloud: Stats = JSON.parse(
-    await octokit
-      .request("GET /gists/{gist_id}", {
-        gist_id: "3fbffb9c94575acd9aac4d1c58b8b8d0",
-      })
-      .then((res) => {
-        return res.data.files ? res.data.files["scuffed-uno-stats.json"]?.content || "{}" : "{}";
-      })
-      .catch((err) => {
-        console.log(err);
-        return "{}";
-      })
-  );
+  const cloud = await fetchStats();
   if (cloud.lobbiesOnline === undefined) return console.log("Empty cloud");
 
   const total: Stats = {
@@ -158,18 +142,7 @@ setInterval(async () => {
     },
   };
 
-  try {
-    await octokit.request("PATCH /gists/{gist_id}", {
-      gist_id: "3fbffb9c94575acd9aac4d1c58b8b8d0",
-      files: {
-        "scuffed-uno-stats.json": {
-          content: JSON.stringify(total),
-        },
-      },
-    });
-  } catch (error) {
-    console.log(error);
-  }
+  await writeStats(JSON.stringify(total));
 }, 300000);
 
 export { incrementStat, decrementStat, incrementPickedColors, decrementPickedColors };
