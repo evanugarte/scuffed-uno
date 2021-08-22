@@ -11,7 +11,7 @@ export default {
   methods: {
     async updateStats() {
       this.stats = await fetch(
-        "https://gist.githubusercontent.com/freddie-nelson/3fbffb9c94575acd9aac4d1c58b8b8d0/raw/37698880aab8d1083f24e957caeab0f5d79fbd59/scuffed-uno-stats.json"
+        "https://gist.githubusercontent.com/freddie-nelson/3fbffb9c94575acd9aac4d1c58b8b8d0/raw/scuffed-uno-stats.json"
       )
         .then(async (res) => await res.json())
         .catch((err) => console.log(err));
