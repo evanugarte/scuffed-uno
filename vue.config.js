@@ -1,10 +1,11 @@
 const path = require("path");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
+const PrerenderSPAPlugin = require("prerender-spa-plugin");
 
 module.exports = {
   chainWebpack: (config) => {
     config.plugin("html").tap((args) => {
-      args[0].title = "Scuffed Uno";
+      args[0].title = "Scuffed Uno - Play UNO online with friends";
       args[0].template = "client/public/index.html";
       return args;
     });
@@ -31,6 +32,10 @@ module.exports = {
             },
           },
         ],
+      }),
+      new PrerenderSPAPlugin({
+        staticDir: path.join(__dirname, "client/dist"),
+        routes: ["/", "/stats"],
       }),
     ],
   },
