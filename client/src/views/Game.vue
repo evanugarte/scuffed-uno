@@ -382,6 +382,8 @@ export default {
     playCard(index) {
       if (!this.room.you.canPlay || !this.canPlayClient) return;
 
+      this.showKeepCard = false;
+
       // stop player from drawing or playing while awaiting response from server
       this.canDrawClient = false;
       this.canPlayClient = false;
@@ -449,17 +451,15 @@ export default {
       }
     },
     choicePlayCard() {
-      setTimeout(
-        () =>
-          document
-            .querySelector(
-              `.cards.you .card:nth-of-type(${
-                this.playerCards.findIndex((c) => c.playable) + 1
-              })`
-            )
-            .click(),
-        800
-      );
+      setTimeout(() => {
+        const card = document.querySelector(
+          `.cards.you .card:nth-of-type(${
+            this.playerCards.findIndex((c) => c.playable) + 1
+          })`
+        );
+        if (card) card.click();
+      }, 600);
+
       this.showKeepCard = false;
     },
   },
