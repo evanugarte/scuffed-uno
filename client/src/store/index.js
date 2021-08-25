@@ -76,7 +76,12 @@ window.addEventListener("offline", () => store.commit("SET_IS_OFFLINE", true));
 
 // isLandscape listeners
 screen.orientation.onchange = () =>
-  store.commit("SET_IS_LANDSCAPE", screen.orientation.type.includes("landscape"));
+  store.commit(
+    "SET_IS_LANDSCAPE",
+    screen.orientation
+      ? screen.orientation.type.includes("landscape")
+      : window.orientation === 90 || window.orientation === -90
+  );
 
 const resizeObserver = new ResizeObserver(() => {
   store.commit("SET_WINDOW_DIMENSIONS", { width: window.innerWidth, height: window.innerHeight });

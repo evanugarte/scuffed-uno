@@ -238,8 +238,9 @@ export default {
       href="https://freddienelson.co.uk"
       rel="noopener"
       target="_blank"
-      >made by <span>Freddie</span></a
     >
+      made by <span>Freddie</span>
+    </a>
 
     <router-link class="watermark stats-link" to="/stats">
       Global Stats
@@ -277,6 +278,15 @@ export default {
         >
           Start Game
         </u-menu-btn>
+      </div>
+      <div v-else class="room-info">
+        <a
+          class="code"
+          style="opacity: 0.7; transform: scale(0.9)"
+          href="https://www.crazygames.com/game/scuffed-uno"
+          >Play on
+          <span style="text-decoration: underline">crazygames.com</span></a
+        >
       </div>
     </header>
 
