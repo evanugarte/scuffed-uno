@@ -5,6 +5,17 @@ Vue.use(Vuex);
 
 const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
+const getIsLandscape = () => {
+  try {
+    return screen.orientation && screen.orientation.type
+      ? screen.orientation.type.includes("landscape")
+      : window.matchMedia("(orientation: landscape)").matches;
+  } catch (err) {
+    console.log(err);
+    return true;
+  }
+};
+
 const defaultRoom = {
   id: "",
   isHost: false,
@@ -25,7 +36,7 @@ const store = new Vuex.Store({
   state: {
     isMobile,
     isConnected: false,
-    isLandscape: screen.orientation.type.includes("landscape"),
+    isLandscape: getIsLandscape(),
     isOffline: !navigator.onLine,
     windowWidth: 1920,
     windowHeight: 1080,
@@ -75,19 +86,7 @@ window.addEventListener("online", () => store.commit("SET_IS_OFFLINE", false));
 window.addEventListener("offline", () => store.commit("SET_IS_OFFLINE", true));
 
 // isLandscape listeners
-screen.orientation.onchange = () => {
-  try {
-    store.commit(
-      "SET_IS_LANDSCAPE",
-      screen.orientation && screen.orientation.type
-        ? screen.orientation.type.includes("landscape")
-        : window.matchMedia("(orientation: landscape)").matches
-    );
-  } catch (err) {
-    console.log(err);
-    store.commit("SET_IS_LANDSCAPE", true);
-  }
-};
+screen.orientation.onchange = () => store.commit("SET_IS_LANDSCAPE", getIsLandscape());
 
 const resizeObserver = new ResizeObserver(() => {
   store.commit("SET_WINDOW_DIMENSIONS", { width: window.innerWidth, height: window.innerHeight });
