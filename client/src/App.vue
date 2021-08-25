@@ -26,10 +26,13 @@
         It is recommended to play Scuffed Uno in landscape mode for the best
         possible experience.
       </p>
-      <!-- <button class="close-btn">
+      <button
+        class="close-btn"
+        @click="$store.commit('SET_IS_LANDSCAPE', true)"
+      >
         <div></div>
         <div></div>
-      </button> -->
+      </button>
     </div>
   </div>
 </template>
