@@ -75,13 +75,19 @@ window.addEventListener("online", () => store.commit("SET_IS_OFFLINE", false));
 window.addEventListener("offline", () => store.commit("SET_IS_OFFLINE", true));
 
 // isLandscape listeners
-screen.orientation.onchange = () =>
-  store.commit(
-    "SET_IS_LANDSCAPE",
-    screen.orientation
-      ? screen.orientation.type.includes("landscape")
-      : window.orientation === 90 || window.orientation === -90
-  );
+screen.orientation.onchange = () => {
+  try {
+    store.commit(
+      "SET_IS_LANDSCAPE",
+      screen.orientation && screen.orientation.type
+        ? screen.orientation.type.includes("landscape")
+        : window.matchMedia("(orientation: landscape)").matches
+    );
+  } catch (err) {
+    console.log(err);
+    store.commit("SET_IS_LANDSCAPE", true);
+  }
+};
 
 const resizeObserver = new ResizeObserver(() => {
   store.commit("SET_WINDOW_DIMENSIONS", { width: window.innerWidth, height: window.innerHeight });
