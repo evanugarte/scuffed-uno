@@ -8,6 +8,18 @@ const players: { [index: string]: Player } = {};
 const rooms: { [index: string]: Room } = {};
 const publicRooms: { host: string; code: string; maxPlayers: number; playerCount: number }[] = [];
 
+// prune public rooms for finished rooms every 8 minutes
+// to clear glitched persisting rooms
+setInterval(() => {
+  for (let i = publicRooms.length - 1; i > 0; i--) {
+    const pr = publicRooms[i];
+    if (!rooms[pr.code] || rooms[pr.code].players.length === 0) {
+      publicRooms.splice(i, 1);
+      if (rooms[pr.code]) delete rooms[pr.code];
+    }
+  }
+}, 60000 * 8);
+
 const validateSettings = (settings: any): Settings | false => {
   if (!settings || typeof settings !== "object") return false;
 
