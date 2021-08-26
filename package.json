@@ -4,7 +4,7 @@
   "description": "",
   "author": "",
   "scripts": {
-    "build": "yarn build:client && webpack",
+    "build": "webpack",
     "build:client": "vue-cli-service build && node cleanupManifest.js",
     "build:server": "webpack",
     "dev:client": "vue-cli-service serve",
