@@ -6,6 +6,7 @@ import UGameStack from "@/components/Game/UGameStack.vue";
 import UGameColorPicker from "@/components/Game/UGameColorPicker.vue";
 import UGamePlayerCards from "@/components/Game/UGamePlayerCards.vue";
 import UMenuBtn from "@/components/Menu/UMenuBtn.vue";
+import USettingsMenu from "../components/USettingsMenu.vue";
 
 export default {
   name: "Game",
@@ -17,6 +18,7 @@ export default {
     UGameColorPicker,
     UGamePlayerCards,
     UMenuBtn,
+    USettingsMenu,
   },
   data() {
     return {
@@ -500,15 +502,12 @@ export default {
     </u-menu-modal>
 
     <button class="settings-btn" @click="showSettings = !showSettings"></button>
-    <u-menu-modal
+    <u-settings-menu
       v-if="showSettings"
       title="Settings"
       @close="showSettings = false"
-    >
-      <u-menu-btn class="btn rounded-btn" @click="leaveRoom">
-        Leave Game
-      </u-menu-btn>
-    </u-menu-modal>
+      @exit="leaveRoom"
+    />
 
     <u-game-color-picker
       v-if="pickColor || (room.wildcard && !isTurn)"

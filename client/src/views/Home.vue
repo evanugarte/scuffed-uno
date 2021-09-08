@@ -3,6 +3,7 @@ import UMenuCard from "@/components/Menu/UMenuCard.vue";
 import UMenuModal from "@/components/Menu/UMenuModal.vue";
 import UMenuInput from "@/components/Menu/UMenuInput.vue";
 import UMenuBtn from "@/components/Menu/UMenuBtn.vue";
+import USettingsMenu from "../components/USettingsMenu.vue";
 
 import menuOptions from "@/mixins/menuOptions";
 
@@ -10,7 +11,7 @@ let observer;
 
 export default {
   name: "Home",
-  components: { UMenuCard, UMenuModal, UMenuInput, UMenuBtn },
+  components: { UMenuCard, UMenuModal, UMenuInput, UMenuBtn, USettingsMenu },
   mixins: [menuOptions],
   data() {
     return {
@@ -102,9 +103,9 @@ export default {
         this.$router.push({ name: "Game" });
       }
 
-      if (room.id === "") {
-        this.currentLevel = "online";
-      }
+      // if (room.id === "") {
+      //   this.currentLevel = "online";
+      // }
     },
   },
   methods: {
@@ -375,16 +376,13 @@ export default {
       <u-menu-btn @click="joinRoom()">Join Room</u-menu-btn>
     </u-menu-modal>
 
-    <u-menu-modal
+    <u-settings-menu
       v-if="showSettingsModal"
       title="Settings"
       class="settings-modal"
-      hideClose
-    >
-      <u-menu-btn class="btn rounded-btn" @click="backOptions">
-        Main Menu
-      </u-menu-btn>
-    </u-menu-modal>
+      @exit="backOptions"
+      @close="backOptions"
+    />
 
     <u-menu-modal
       v-if="showPublicRoomsModal"
@@ -422,15 +420,16 @@ export default {
                 showPublicRoomsModal = false;
                 showJoinRoomModal = true;
               "
-              >Join</u-menu-btn
             >
+              Join
+            </u-menu-btn>
           </div>
         </div>
       </div>
 
-      <u-menu-btn class="refresh-btn" @click="fetchPublicRooms"
-        >Refresh</u-menu-btn
-      >
+      <u-menu-btn class="refresh-btn" @click="fetchPublicRooms">
+        Refresh
+      </u-menu-btn>
     </u-menu-modal>
 
     <div
