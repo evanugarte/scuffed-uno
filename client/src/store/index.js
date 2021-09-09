@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import SoundController from "../api/sound.mjs";
 
 Vue.use(Vuex);
 
@@ -43,6 +44,7 @@ const store = new Vuex.Store({
     socket: null,
     animateCards: [],
     room: { ...defaultRoom },
+    soundController: new SoundController(),
   },
   mutations: {
     SET_WINDOW_DIMENSIONS(state, { width, height }) {
