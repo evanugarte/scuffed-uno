@@ -288,6 +288,13 @@ export default {
           >Play on
           <span style="text-decoration: underline">crazygames.com</span></a
         >
+        <a
+          class="code"
+          style="opacity: 0.7; transform: scale(0.9)"
+          href="mailto:nathanielmusic824@gmail.com"
+          >Music by
+          <span style="text-decoration: underline">Nathaniel Lue</span></a
+        >
       </div>
     </header>
 
