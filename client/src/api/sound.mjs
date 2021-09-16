@@ -1,42 +1,43 @@
-// const AudioContext = window.AudioContext || window.webkitAudioContext;
-const audioContext = new AudioContext();
+const musicPlayer = new Audio();
+const effectPlayer = new Audio();
 
-// start audio context on first user interaction
-const startAudioContext = async () => {
-  if (audioContext.state !== "running") {
-    await audioContext.resume();
-    console.log(audioContext.state);
-  }
+const tracksDir = "/sound/tracks";
+const effectsDir = "/sound/effects";
+
+const loadAudio = (path) => {
+  const audio = document.createElement("audio");
+  audio.src = path;
 };
-
-window.addEventListener("mousedown", startAudioContext);
-window.addEventListener("keydown", startAudioContext);
-window.addEventListener("touchstart", startAudioContext);
-
-const newSound = (path) => {
-  let track;
-  try {
-    const audio = new Audio(path);
-    track = audioContext.createMediaElementSource(audio);
-  } catch (error) {
-    console.log("Failed to load: " + path + "\n" + error);
-  }
-
-  return track;
-};
-
-const tracksDir = "@/assets/music";
 
 export default class SoundController {
   tracks = {
-    mainTheme: newSound(`${tracksDir}/main-theme.mp3`),
+    mainTheme: `${tracksDir}/main-theme.mp3`,
   };
 
+  musicVolume = 0.2;
+
   constructor() {
-    console.log(this.tracks);
+    musicPlayer.volume = this.musicVolume;
+
+    this.playTrack("mainTheme");
   }
 
   setMusicVolume(volume) {
-    console.log(volume);
+    if (volume < 0 || volume > 1) return;
+
+    this.musicVolume = volume;
+    musicPlayer.volume = volume;
+  }
+
+  playTrack(name) {
+    musicPlayer.pause();
+
+    if (this.tracks[name]) {
+      musicPlayer.src = this.tracks[name];
+    } else {
+      console.log("Track does not exist: " + name);
+    }
+
+    musicPlayer.play();
   }
 }

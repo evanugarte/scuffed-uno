@@ -37,7 +37,8 @@
         name="music-volume"
         min="0"
         max="1"
-        step="0.05"
+        step="0.01"
+        :value="$store.state.soundController.musicVolume"
         @input="
           $store.state.soundController.setMusicVolume(
             Number($event.target.value)

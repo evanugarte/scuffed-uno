@@ -1,6 +1,5 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import SoundController from "../api/sound.mjs";
 
 Vue.use(Vuex);
 
@@ -44,7 +43,7 @@ const store = new Vuex.Store({
     socket: null,
     animateCards: [],
     room: { ...defaultRoom },
-    soundController: new SoundController(),
+    soundController: null,
   },
   mutations: {
     SET_WINDOW_DIMENSIONS(state, { width, height }) {
@@ -63,6 +62,10 @@ const store = new Vuex.Store({
     },
     SET_IS_LANDSCAPE(state, bool) {
       state.isLandscape = bool;
+    },
+
+    SET_SOUND_CONTROLLER(state, controller) {
+      state.soundController = controller;
     },
 
     SET_ROOM(state, room) {

@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" @click.once="initSoundController">
     <router-view :key="refresh" />
 
     <div v-if="$store.state.isOffline" class="offline">
@@ -40,6 +40,7 @@
 <script>
 import "@/api/socket";
 import Card from "@/components/Card.vue";
+import SoundController from "@/api/sound";
 
 export default {
   components: { Card },
@@ -93,30 +94,9 @@ export default {
     },
   },
   methods: {
-    // toggleFullScreen(bool) {
-    //   const doc = window.document;
-    //   const docEl = doc.documentElement;
-    //   const requestFullScreen =
-    //     docEl.requestFullscreen ||
-    //     docEl.mozRequestFullScreen ||
-    //     docEl.webkitRequestFullScreen ||
-    //     docEl.msRequestFullscreen;
-    //   const cancelFullScreen =
-    //     doc.exitFullscreen ||
-    //     doc.mozCancelFullScreen ||
-    //     doc.webkitExitFullscreen ||
-    //     doc.msExitFullscreen;
-    //   if (
-    //     !doc.fullscreenElement &&
-    //     !doc.mozFullScreenElement &&
-    //     !doc.webkitFullscreenElement &&
-    //     !doc.msFullscreenElement
-    //   ) {
-    //     if (bool) requestFullScreen.call(docEl);
-    //   } else {
-    //     if (!bool) cancelFullScreen.call(doc);
-    //   }
-    // },
+    initSoundController() {
+      this.$store.commit("SET_SOUND_CONTROLLER", new SoundController());
+    },
   },
 };
 </script>
