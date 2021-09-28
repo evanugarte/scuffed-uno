@@ -247,15 +247,15 @@ export default {
       class="watermark"
       style="
         opacity: 0.8;
-        transform: scale(1.3);
+        transform: translate(-50%) scale(1.3);
+        left: 50%;
+        right: unset;
         transform-origin: bottom center;
         position: absolute;
-        left: 0;
-        width: 100%;
-        margin: 0 auto;
         text-decoration: underline;
-        text-align: center;
       "
+      rel="noopener"
+      target="_blank"
       href="https://forms.gle/tmMcPrvzuo9j4NJP7"
     >
       I'm looking for your feedback

@@ -14,7 +14,7 @@ export default class SoundController {
     mainTheme: `${tracksDir}/main-theme.mp3`,
   };
 
-  musicVolume = 0.05;
+  musicVolume = 0;
 
   constructor() {
     musicPlayer.volume = this.musicVolume;
