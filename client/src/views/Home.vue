@@ -243,6 +243,24 @@ export default {
       made by <span>Freddie</span>
     </a>
 
+    <a
+      class="watermark"
+      style="
+        opacity: 0.8;
+        transform: scale(1.3);
+        transform-origin: bottom center;
+        position: absolute;
+        left: 0;
+        width: 100%;
+        margin: 0 auto;
+        text-decoration: underline;
+        text-align: center;
+      "
+      href="https://forms.gle/tmMcPrvzuo9j4NJP7"
+    >
+      I'm Looking for your feedback
+    </a>
+
     <router-link class="watermark stats-link" to="/stats">
       Global Stats
     </router-link>
