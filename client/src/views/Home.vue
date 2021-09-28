@@ -258,7 +258,7 @@ export default {
       "
       href="https://forms.gle/tmMcPrvzuo9j4NJP7"
     >
-      I'm Looking for your feedback
+      I'm looking for your feedback
     </a>
 
     <router-link class="watermark stats-link" to="/stats">
