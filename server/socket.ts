@@ -13,12 +13,12 @@ const publicRooms: { host: string; code: string; maxPlayers: number; playerCount
 setInterval(() => {
   for (let i = publicRooms.length - 1; i > 0; i--) {
     const pr = publicRooms[i];
-    if (!rooms[pr.code] || rooms[pr.code].players.length === 0) {
+    if (!rooms[pr.code] || rooms[pr.code].players.length === 0 || rooms[pr.code].isRoomEmpty) {
       publicRooms.splice(i, 1);
       if (rooms[pr.code]) delete rooms[pr.code];
     }
   }
-}, 60000 * 8);
+}, 60000 * 3);
 
 const validateSettings = (settings: any): Settings | false => {
   if (!settings || typeof settings !== "object") return false;
@@ -46,14 +46,15 @@ const validateSettings = (settings: any): Settings | false => {
   return s;
 };
 
-const updatePublicRoomPlayerCount = (player: Player, num: number) => {
-  if (rooms[player.roomId]?.settings.public) {
-    const i = publicRooms.findIndex((r) => r.code === player.roomId);
+const updatePublicRoomPlayerCount = (player: Player, num: number, id = "") => {
+  const roomId = id || player.roomId;
+  if (rooms[roomId]?.settings.public) {
+    const i = publicRooms.findIndex((r) => r.code === roomId);
     if (i === -1) return;
 
     publicRooms[i].playerCount += num;
 
-    if (publicRooms[i].playerCount === 0) {
+    if (publicRooms[i].playerCount === 0 || rooms[roomId].isRoomEmpty) {
       publicRooms.splice(i, 1);
     }
   }
@@ -71,12 +72,12 @@ export default function(socket: Socket) {
 
     const room = rooms[player.roomId];
     room.removePlayer(player, false);
+    updatePublicRoomPlayerCount(player, -1, room.id);
 
     if (room.isRoomEmpty) delete rooms[room.id];
   };
 
   socket.on("disconnect", () => {
-    updatePublicRoomPlayerCount(player, -1);
     leaveRoom();
     decrementStat("playersOnline", 1);
 
@@ -124,7 +125,7 @@ export default function(socket: Socket) {
 
     // get room
     const room = rooms[roomCode];
-    if (!room || room.players.length === room.settings.maxPlayers || room.started)
+    if (!room || room.players.length === room.settings.maxPlayers || room.started || room.isRoomEmpty)
       return socket.emit("kicked");
 
     player.username = username;
@@ -154,14 +155,13 @@ export default function(socket: Socket) {
     const remove = room.players.find((p) => p.id === id);
     if (!remove) return;
 
+    room.removePlayer(remove, false);
     updatePublicRoomPlayerCount(player, -1);
 
-    room.removePlayer(remove, false);
     remove.socket?.emit("kicked");
   });
 
   socket.on("leave-room", () => {
-    updatePublicRoomPlayerCount(player, -1);
     leaveRoom();
   });
 

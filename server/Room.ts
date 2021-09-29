@@ -459,7 +459,22 @@ export class Room implements RoomInterface {
     bot.inRoom = true;
     bot.roomId = this.id;
 
-    const botNames = ["John", "James", "Alice", "Sean", "Joe", "Fred", "Bob", "Pat", "Jack", "Adam"];
+    const botNames = [
+      "John",
+      "James",
+      "Alice",
+      "Sean",
+      "Joe",
+      "Fred",
+      "Bob",
+      "Pat",
+      "Jack",
+      "Adam",
+      "Nathaniel",
+      "Freddie",
+      "Baka",
+      "Sussy",
+    ];
     bot.username = `Bot ${botNames[Math.floor(Math.random() * botNames.length)]}`;
 
     if (player) bot.cards = [...player.cards];
