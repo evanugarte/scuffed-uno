@@ -24,3 +24,6 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+
+client/tests/e2e/videos/
+client/tests/e2e/screenshots/

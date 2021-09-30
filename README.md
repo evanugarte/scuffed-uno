@@ -16,6 +16,6 @@
 
 ## Technology
 
-- The frontend is built with [VueJS 2](https://vuejs.org/) along with Vue router for client side routing. 
-- The backend is powered by [NodeJS](https://nodejs.org/en/) and [socketio](https://socket.io/) running on a heroku free tier dyno.  
+- The frontend is built with [VueJS 3](https://vuejs.org/) along with Vue router for client side routing.
+- The backend is powered by [NodeJS](https://nodejs.org/en/) and [socketio](https://socket.io/) running on a heroku free tier dyno.
 - PWA capabilities are enabled by [@vue/cli-plugin-pwa](https://cli.vuejs.org/core-plugins/pwa.html)
