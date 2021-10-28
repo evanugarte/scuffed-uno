@@ -27,3 +27,6 @@ pnpm-debug.log*
 
 client/tests/e2e/videos/
 client/tests/e2e/screenshots/
+
+scripts/ENV.json
+scripts/out

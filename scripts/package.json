@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "download-stats": "node ./downloadStats",
+    "create-stats-chart": "node ./createStatsChart"
+  },
+  "dependencies": {
+    "octokit": "^1.7.0"
+  }
+}
