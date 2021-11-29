@@ -10,7 +10,7 @@ const io = new Server(http, {
   cors: {
     origin:
       process.env.NODE_ENV === "production"
-        ? ["https://scuffeduno.online", "https://uno-freddie.netlify.app"]
+        ? ["https://scuffeduno.online", "https://scuffeduno.netlify.app"]
         : "*",
     methods: ["GET", "POST"],
   },
