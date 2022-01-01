@@ -3,8 +3,14 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import "./registerServiceWorker";
+import SimpleAnalytics from "simple-analytics-vue";
 
 Vue.config.productionTip = false;
+
+Vue.use(SimpleAnalytics, {
+  skip: process.env.NODE_ENV !== "production",
+  domain: "api.scuffeduno.online",
+});
 
 new Vue({
   router,
