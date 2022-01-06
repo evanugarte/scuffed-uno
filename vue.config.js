@@ -1,6 +1,5 @@
 const path = require("path");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
-const PrerenderSPAPlugin = require("prerender-spa-plugin");
 
 module.exports = {
   chainWebpack: (config) => {
@@ -32,10 +31,6 @@ module.exports = {
             },
           },
         ],
-      }),
-      new PrerenderSPAPlugin({
-        staticDir: path.join(__dirname, "client/dist"),
-        routes: ["/", "/stats"],
       }),
     ],
   },

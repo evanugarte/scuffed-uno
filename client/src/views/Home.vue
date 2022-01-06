@@ -258,8 +258,9 @@ export default {
       Feedback noted, huge update in the works.
     </p> -->
 
-    <ins
-      class="adsbygoogle ad-side"
+    <Adsense
+      class="ad ad-side"
+      ins-class="ins"
       style="display: block"
       data-ad-client="ca-pub-2444394876892971"
       data-ad-slot="7743741619"
@@ -267,18 +268,19 @@ export default {
       data-full-width-responsive="true"
       :data-adtest="isDev ? 'on' : 'off'"
       :style="{ background: isDev ? 'white' : '' }"
-    ></ins>
+    ></Adsense>
 
     <!-- scuffed-uno-home ad unit -->
-    <ins
-      class="adsbygoogle ad-bottom"
+    <Adsense
+      class="ad ad-bottom"
+      ins-class="ins"
       data-ad-client="ca-pub-2444394876892971"
       data-ad-slot="2068549589"
       data-ad-format="auto"
       data-full-width-responsive="true"
       :data-adtest="isDev ? 'on' : 'off'"
       :style="{ background: isDev ? 'white' : '' }"
-    ></ins>
+    ></Adsense>
 
     <router-link class="watermark stats-link" to="/stats">
       Global Stats
@@ -498,10 +500,8 @@ export default {
   </section>
 </template>
 
-<style lang="scss" scoped>
-$mobile: 900px;
-
-.adsbygoogle {
+<style lang="scss">
+.ad {
   position: absolute;
   display: block;
 
@@ -511,9 +511,12 @@ $mobile: 900px;
     left: 47.5%;
     bottom: 1vh;
     width: 60vw;
-    height: 15vh;
-    min-height: 60px;
-    max-height: 300px;
+
+    .ins {
+      height: 15vh !important;
+      min-height: 60px;
+      max-height: 300px;
+    }
 
     @media screen and (max-width: 650px) {
       width: 52vw;
@@ -540,6 +543,10 @@ $mobile: 900px;
     }
   }
 }
+</style>
+
+<style lang="scss" scoped>
+$mobile: 900px;
 
 .watermark {
   color: white;
