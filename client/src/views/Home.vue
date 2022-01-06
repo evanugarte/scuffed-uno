@@ -40,6 +40,7 @@ export default {
       showPublicRoomsModal: false,
       publicRooms: [],
       fetchingPublicRooms: false,
+      isDev: process.env.NODE_ENV === "development",
     };
   },
   computed: {
@@ -243,7 +244,7 @@ export default {
       made by <span>Freddie</span>
     </a>
 
-    <p
+    <!-- <p
       class="watermark"
       style="
         opacity: 0.8;
@@ -255,7 +256,29 @@ export default {
       "
     >
       Feedback noted, huge update in the works.
-    </p>
+    </p> -->
+
+    <ins
+      class="adsbygoogle ad-side"
+      style="display: block"
+      data-ad-client="ca-pub-2444394876892971"
+      data-ad-slot="7743741619"
+      data-ad-format="auto"
+      data-full-width-responsive="true"
+      :data-adtest="isDev !== 'production' ? 'on' : 'off'"
+      :style="{ background: isDev ? 'white' : '' }"
+    ></ins>
+
+    <!-- scuffed-uno-home ad unit -->
+    <ins
+      class="adsbygoogle ad-bottom"
+      data-ad-client="ca-pub-2444394876892971"
+      data-ad-slot="2068549589"
+      data-ad-format="auto"
+      data-full-width-responsive="true"
+      :data-adtest="isDev !== 'production' ? 'on' : 'off'"
+      :style="{ background: isDev ? 'white' : '' }"
+    ></ins>
 
     <router-link class="watermark stats-link" to="/stats">
       Global Stats
@@ -478,6 +501,46 @@ export default {
 <style lang="scss" scoped>
 $mobile: 900px;
 
+.adsbygoogle {
+  position: absolute;
+  display: block;
+
+  &.ad-bottom {
+    transform: translate(-50%);
+    transform-origin: bottom center;
+    left: 47.5%;
+    bottom: 1vh;
+    width: 60vw;
+    height: 15vh;
+    min-height: 60px;
+    max-height: 300px;
+
+    @media screen and (max-width: 650px) {
+      width: 52vw;
+    }
+
+    @media screen and (max-width: 530px) {
+      width: 0;
+    }
+  }
+
+  &.ad-side {
+    transform: translateY(-50%);
+    transform-origin: center;
+    top: 48%;
+    right: 1vh;
+    height: 60vh;
+    width: 20vw;
+    min-width: 120px;
+    max-width: 470px;
+
+    @media screen and (max-width: 500px) {
+      width: 0;
+      min-width: 0;
+    }
+  }
+}
+
 .watermark {
   color: white;
   opacity: 0.5;
@@ -541,6 +604,12 @@ img {
       margin-left: clamp(5px, 2vw, 20px);
       font-size: clamp(1.7rem, 4vw, 2.5rem);
       font-weight: bold;
+    }
+
+    .header-ad {
+      display: flex;
+      flex-grow: 1;
+      height: 100%;
     }
   }
 
