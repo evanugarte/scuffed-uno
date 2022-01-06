@@ -40,7 +40,7 @@ export default {
       showPublicRoomsModal: false,
       publicRooms: [],
       fetchingPublicRooms: false,
-      isDev: process.env.NODE_ENV === "development",
+      isDev: process.env.NODE_ENV !== "production",
     };
   },
   computed: {
@@ -265,7 +265,7 @@ export default {
       data-ad-slot="7743741619"
       data-ad-format="auto"
       data-full-width-responsive="true"
-      :data-adtest="isDev !== 'production' ? 'on' : 'off'"
+      :data-adtest="isDev ? 'on' : 'off'"
       :style="{ background: isDev ? 'white' : '' }"
     ></ins>
 
@@ -276,7 +276,7 @@ export default {
       data-ad-slot="2068549589"
       data-ad-format="auto"
       data-full-width-responsive="true"
-      :data-adtest="isDev !== 'production' ? 'on' : 'off'"
+      :data-adtest="isDev ? 'on' : 'off'"
       :style="{ background: isDev ? 'white' : '' }"
     ></ins>
 
