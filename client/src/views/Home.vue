@@ -225,6 +225,8 @@ export default {
       this.publicRooms = rooms;
       this.fetchingPublicRooms = false;
     });
+
+    window.GameAdsRenew("gameadsbanner");
   },
   destroyed() {
     observer.disconnect();
@@ -244,7 +246,10 @@ export default {
       made by <span>Freddie</span>
     </a>
 
-    <!-- <p
+    <a
+      href="https://docs.google.com/forms/d/e/1FAIpQLSeV6lklbgEZRrw6kw9v7en9hDH5AxdXp99SlztZc62anNxEQQ/viewform"
+      rel="noopener"
+      target="_blank"
       class="watermark"
       style="
         opacity: 0.8;
@@ -253,12 +258,13 @@ export default {
         right: unset;
         transform-origin: bottom center;
         position: absolute;
+        text-decoration: underline;
       "
     >
-      Feedback noted, huge update in the works.
-    </p> -->
+      Help improve Scuffed Uno!
+    </a>
 
-    <Adsense
+    <!-- <Adsense
       class="ad ad-side"
       ins-class="ins"
       style="display: block"
@@ -268,10 +274,10 @@ export default {
       data-full-width-responsive="true"
       :data-adtest="isDev ? 'on' : 'off'"
       :style="{ background: isDev ? 'white' : '' }"
-    ></Adsense>
+    ></Adsense> -->
 
     <!-- scuffed-uno-home ad unit -->
-    <Adsense
+    <!-- <Adsense
       class="ad ad-bottom"
       ins-class="ins"
       data-ad-client="ca-pub-2444394876892971"
@@ -280,7 +286,11 @@ export default {
       data-full-width-responsive="true"
       :data-adtest="isDev ? 'on' : 'off'"
       :style="{ background: isDev ? 'white' : '' }"
-    ></Adsense>
+    ></Adsense> -->
+
+    <div class="gameads-container">
+      <div id="gameadsbanner"></div>
+    </div>
 
     <router-link class="watermark stats-link" to="/stats">
       Global Stats
@@ -547,6 +557,16 @@ export default {
 
 <style lang="scss" scoped>
 $mobile: 900px;
+
+.gameads-container {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 23vw;
+  max-width: 400px;
+  min-width: 165px;
+}
 
 .watermark {
   color: white;

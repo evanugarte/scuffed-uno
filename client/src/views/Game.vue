@@ -245,6 +245,12 @@ export default {
 
         this.animateOtherPlayCard(other, room.wildcard, true);
       }
+
+      if (room.winner && window.innerHeight >= 750) {
+        setTimeout(() => {
+          window.GameAdsRenew("gameadsbanner");
+        }, 600);
+      }
     },
   },
   methods: {
@@ -499,6 +505,10 @@ export default {
       hideClose
     >
       <button class="btn rounded-btn" @click="leaveRoom">Main Menu</button>
+
+      <div class="gameads-container-win">
+        <div id="gameadsbanner"></div>
+      </div>
     </u-menu-modal>
 
     <button class="settings-btn" @click="showSettings = !showSettings"></button>
@@ -632,6 +642,16 @@ export default {
 <style lang="scss">
 $mobile: 900px;
 $table-rotatex: 58deg;
+
+.gameads-container-win {
+  position: absolute;
+  bottom: 0;
+  transform: translateY(calc(100% + 20px));
+
+  @media screen and (max-height: 750px) {
+    display: none;
+  }
+}
 
 .game {
   width: 100%;
