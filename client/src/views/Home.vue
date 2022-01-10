@@ -563,9 +563,10 @@ $mobile: 900px;
   right: 10px;
   top: 50%;
   transform: translateY(-50%);
-  width: 23vw;
-  max-width: 400px;
-  min-width: 165px;
+  width: 200px;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
 }
 
 .watermark {

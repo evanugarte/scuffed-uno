@@ -246,7 +246,7 @@ export default {
         this.animateOtherPlayCard(other, room.wildcard, true);
       }
 
-      if (room.winner && window.innerHeight >= 750) {
+      if (room.winner && window.innerHeight >= 650) {
         setTimeout(() => {
           window.GameAdsRenew("gameadsbanner");
         }, 600);
@@ -499,16 +499,16 @@ export default {
 
 <template>
   <div class="game">
+    <div v-if="room.winner" class="gameads-container-win">
+      <div id="gameadsbanner"></div>
+    </div>
+
     <u-menu-modal
       v-if="room.winner"
       :title="`Congratulations to ${room.winner.username} on winning the game!`"
       hideClose
     >
       <button class="btn rounded-btn" @click="leaveRoom">Main Menu</button>
-
-      <div class="gameads-container-win">
-        <div id="gameadsbanner"></div>
-      </div>
     </u-menu-modal>
 
     <button class="settings-btn" @click="showSettings = !showSettings"></button>
@@ -645,10 +645,9 @@ $table-rotatex: 58deg;
 
 .gameads-container-win {
   position: absolute;
-  bottom: 0;
-  transform: translateY(calc(100% + 20px));
+  bottom: 30px;
 
-  @media screen and (max-height: 750px) {
+  @media screen and (max-height: 650px) {
     display: none;
   }
 }
