@@ -206,6 +206,9 @@ export default {
       this.$store.state.socket.emit("get-public-rooms");
       this.fetchingPublicRooms = true;
     },
+    gameadsClicked() {
+      window.gameadsClicked();
+    },
   },
   mounted() {
     this.isMounted = true;
@@ -288,7 +291,7 @@ export default {
       :style="{ background: isDev ? 'white' : '' }"
     ></Adsense> -->
 
-    <div class="gameads-container">
+    <div class="gameads-container" @click="gameadsClicked()">
       <div id="gameadsbanner"></div>
     </div>
 

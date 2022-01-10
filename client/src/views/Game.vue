@@ -254,6 +254,9 @@ export default {
     },
   },
   methods: {
+    gameadsClicked() {
+      window.gameadsClicked();
+    },
     animateOtherPlayCard(player, card, toStack) {
       let transform;
       if (player === "right") {
@@ -499,7 +502,11 @@ export default {
 
 <template>
   <div class="game">
-    <div v-if="room.winner" class="gameads-container-win">
+    <div
+      v-if="room.winner"
+      class="gameads-container-win"
+      @click="gameadsClicked"
+    >
       <div id="gameadsbanner"></div>
     </div>
 

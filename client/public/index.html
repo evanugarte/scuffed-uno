@@ -69,6 +69,18 @@
       })(window, document, "gameadsbanner", "https://n.gameads.io/getcode", "GameAdsRenew");
     </script>
 
+    <script>
+      function gameadsClicked() {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "https://api.countapi.xyz/hit/scuffeduno.online/gameadsclicks");
+        xhr.responseType = "json";
+        xhr.onload = function() {};
+        xhr.send();
+      }
+
+      window.gameadsClicked = gameadsClicked;
+    </script>
+
     <div id="app"></div>
     <!-- built files will be auto injected -->
   </body>
