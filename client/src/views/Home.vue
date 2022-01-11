@@ -41,6 +41,7 @@ export default {
       publicRooms: [],
       fetchingPublicRooms: false,
       isDev: process.env.NODE_ENV !== "production",
+      gameAdsInterval: null,
     };
   },
   computed: {
@@ -229,9 +230,19 @@ export default {
       this.fetchingPublicRooms = false;
     });
 
-    window.GameAdsRenew("gameadsbanner");
+    if (window.innerWidth >= 900) {
+      window.GameAdsRenew("gameadsbanner");
+    }
+
+    this.gameAdsInterval = setInterval(() => {
+      if (window.innerWidth >= 900) {
+        window.GameAdsRenew("gameadsbanner");
+      }
+    }, 17000);
   },
   destroyed() {
+    clearInterval(this.gameAdsInterval);
+
     observer.disconnect();
     this.$store.state.socket.off("recieve-public-rooms");
   },
@@ -570,6 +581,10 @@ $mobile: 900px;
   display: flex;
   flex-direction: row-reverse;
   align-items: center;
+
+  @media screen and (max-width: $mobile) {
+    display: none;
+  }
 }
 
 .watermark {

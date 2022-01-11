@@ -652,21 +652,9 @@ $table-rotatex: 58deg;
 
 .gameads-container-win {
   position: absolute;
-  bottom: 30px;
-
-  @media screen and (max-height: 650px) {
-    display: none;
-  }
-}
-
-.game {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
+  bottom: 15%;
+  transform: translateY(50%);
+  z-index: 10000;
 }
 
 .animation-cards {
