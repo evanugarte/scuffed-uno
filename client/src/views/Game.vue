@@ -657,6 +657,16 @@ $table-rotatex: 58deg;
   z-index: 10000;
 }
 
+.game {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
 .animation-cards {
   * {
     position: absolute;
