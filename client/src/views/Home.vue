@@ -306,6 +306,14 @@ export default {
       <div id="gameadsbanner"></div>
     </div>
 
+    <a
+      class="watermark stats-link"
+      style="bottom: 5.5vh"
+      href="https://kevin.games"
+    >
+      More Games
+    </a>
+
     <router-link class="watermark stats-link" to="/stats">
       Global Stats
     </router-link>
