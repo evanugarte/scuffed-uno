@@ -17,6 +17,17 @@ export default {
     return {
       isMounted: false,
       formError: "",
+      createRoomSoloForm: {
+        username: "You",
+        settings: {
+          stacking: false,
+          forcePlay: false,
+          bluffing: false,
+          drawToPlay: false,
+          public: false,
+          maxPlayers: 4,
+        },
+      },
       createRoomForm: {
         username: "",
         roomCode: "",
@@ -34,6 +45,7 @@ export default {
         roomCode: "",
       },
       optionsWidth: 0,
+      showCreateRoomSoloModal: false,
       showCreateRoomModal: false,
       showJoinRoomModal: false,
       showSettingsModal: false,
@@ -134,17 +146,18 @@ export default {
       this.$store.state.socket.emit("create-room", this.createRoomForm);
     },
     createRoomSolo() {
-      this.$store.state.socket.emit("create-room", {
-        username: "You",
-        settings: {
-          stacking: false,
-          forcePlay: false,
-          bluffing: false,
-          drawToPlay: false,
-          public: false,
-          maxPlayers: 4,
-        },
-      });
+      if (
+        this.createRoomSoloForm.username.length < 2 ||
+        this.createRoomSoloForm.username.length > 11
+      )
+        return (this.formError =
+          "Username must be between 2 and 11 characters");
+
+      this.currentLevel = "solo";
+      this.showCreateRoomSoloModal = false;
+      this.formError = "";
+
+      this.$store.state.socket.emit("create-room", this.createRoomSoloForm);
     },
     joinRoom() {
       // validate form
@@ -360,6 +373,49 @@ export default {
         >
       </div>
     </header>
+
+    <u-menu-modal
+      v-if="showCreateRoomSoloModal"
+      @close="
+        showCreateRoomSoloModal = false;
+        formError = '';
+      "
+      title="Create Solo Room"
+    >
+      <u-menu-input
+        v-model="createRoomSoloForm.username"
+        label="Username (required)"
+        placeholder="Your username..."
+      />
+
+      <div class="rules">
+        <u-menu-input
+          v-model="createRoomSoloForm.settings.forcePlay"
+          label="Force Play"
+          type="checkbox"
+          class="rule"
+        />
+        <u-menu-input
+          v-model="createRoomSoloForm.settings.drawToPlay"
+          label="Draw To Play"
+          type="checkbox"
+          class="rule"
+        />
+        <u-menu-input
+          v-model="createRoomSoloForm.settings.bluffing"
+          label="Bluffing"
+          type="checkbox"
+          class="rule"
+          style="opacity: 0.5; pointer-events: none"
+        />
+      </div>
+
+      <div v-if="formError" class="response error">
+        <p>{{ formError }}</p>
+      </div>
+
+      <u-menu-btn @click="createRoomSolo">Create Room</u-menu-btn>
+    </u-menu-modal>
 
     <u-menu-modal
       v-if="showCreateRoomModal"

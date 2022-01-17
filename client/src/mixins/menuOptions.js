@@ -8,8 +8,7 @@ export default {
           {
             action: "Solo Play",
             graphic: require("@/assets/solo.jpg"),
-            level: "solo",
-            func: () => this.createRoomSolo(),
+            func: () => (this.showCreateRoomSoloModal = true),
           },
           {
             action: "Online Play",

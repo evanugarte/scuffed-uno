@@ -474,8 +474,23 @@ export class Room implements RoomInterface {
       "Freddie",
       "Baka",
       "Sussy",
+      "Deez",
+      "Nutz",
+      "Mama",
+      "Kai",
+      "Ligma",
+      "Aidan",
+      "Azaan",
+      "Luc",
+      "Michael",
+      "Chris",
+      "Matty",
+      "Max",
     ];
-    bot.username = `Bot ${botNames[Math.floor(Math.random() * botNames.length)]}`;
+
+    do {
+      bot.username = `Bot ${botNames[Math.floor(Math.random() * botNames.length)]}`;
+    } while (this.players.findIndex((p) => p.username === bot.username) !== -1);
 
     if (player) bot.cards = [...player.cards];
 
