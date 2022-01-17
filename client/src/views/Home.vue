@@ -57,6 +57,9 @@ export default {
     };
   },
   computed: {
+    kicked() {
+      return this.$store.state.kicked;
+    },
     room() {
       return this.$store.state.room;
     },
@@ -80,6 +83,11 @@ export default {
     },
   },
   watch: {
+    kicked() {
+      if (!this.room.id) {
+        this.currentLevel = "online";
+      }
+    },
     room(room) {
       const players = ["You"];
 

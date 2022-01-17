@@ -44,6 +44,7 @@ const store = new Vuex.Store({
     animateCards: [],
     room: { ...defaultRoom },
     soundController: null,
+    kicked: false,
   },
   mutations: {
     SET_WINDOW_DIMENSIONS(state, { width, height }) {
@@ -82,6 +83,10 @@ const store = new Vuex.Store({
       const cards = [...state.animateCards];
       cards.splice(index, 1);
       state.animateCards = cards;
+    },
+
+    KICKED(state) {
+      state.kicked = !state.kicked;
     },
   },
 });

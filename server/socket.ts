@@ -117,11 +117,11 @@ export default function(socket: Socket) {
   });
 
   socket.on("join-room", ({ username = "", roomCode = "" }) => {
-    if (player.inRoom) return;
+    if (player.inRoom) return socket.emit("kicked");
 
     // validate data
-    if (username.length < 2 || username.length > 11) return;
-    if (roomCode.length < 4 || roomCode.length > 12) return;
+    if (username.length < 2 || username.length > 11) return socket.emit("kicked");
+    if (roomCode.length < 4 || roomCode.length > 12) return socket.emit("kicked");
 
     // get room
     const room = rooms[roomCode];

@@ -14,4 +14,7 @@ socket.on("disconnect", () => store.commit("SET_IS_CONNECTED", false));
 
 socket.on("state", (room) => store.commit("SET_ROOM", room));
 
-socket.on("kicked", () => store.commit("RESET_ROOM"));
+socket.on("kicked", () => {
+  store.commit("RESET_ROOM");
+  store.commit("KICKED");
+});
