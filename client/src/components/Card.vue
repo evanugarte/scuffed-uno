@@ -203,12 +203,12 @@ export default {
         else this.$refs.card.style.transform = "";
 
         this.$refs.card.ontransitionend = () => {
-          const card = this.$store.state.animateCards[
-            this.findAnimateCardsIndex(id)
-          ];
+          const card =
+            this.$store.state.animateCards[this.findAnimateCardsIndex(id)];
           if (!card) return;
 
           card.steps--;
+          // console.log(card.steps);
           card.isTransitionComplete = true;
 
           if (card.steps === 0) {
@@ -229,9 +229,8 @@ export default {
 
         // if after 200ms card isnt removed then remove it manually (exclude player's cards)
         setTimeout(() => {
-          const card = this.$store.state.animateCards[
-            this.findAnimateCardsIndex(id)
-          ];
+          const card =
+            this.$store.state.animateCards[this.findAnimateCardsIndex(id)];
           if (card && card.draw && card.player)
             document
               .querySelector(

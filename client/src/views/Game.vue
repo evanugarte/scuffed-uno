@@ -197,6 +197,21 @@ export default {
       // update check for drawing cards client side
       if (this.drawing) this.drawing = room.you.drawing;
 
+      // remove all animated cards after turn change
+      if (room.turn !== oldRoom.turn) {
+        if (oldRoom.turn === room.you.id) {
+          setTimeout(() => {
+            this.$store.state.animateCards.forEach((c, i) => {
+              this.$store.commit("REMOVE_ANIMATE_CARD", i);
+            });
+          }, 1000);
+        } else {
+          this.$store.state.animateCards.forEach((c, i) => {
+            this.$store.commit("REMOVE_ANIMATE_CARD", i);
+          });
+        }
+      }
+
       // player playing card animation
       const index = this.$store.state.animateCards.findIndex((c) => c.player);
       if (index !== -1 && oldRoom.pile.length !== room.pile.length) {
