@@ -156,6 +156,11 @@ export class Room implements RoomInterface {
   giveCard(player: Player): Card {
     if (this.deck.cards.length === 0) {
       this.refillDeckFromPile();
+
+      // if there is still no cards then just generate another deck
+      if (this.deck.cards.length === 0) {
+        this.deck.generateDeck(false);
+      }
     }
 
     const card = this.deck.pickCard();

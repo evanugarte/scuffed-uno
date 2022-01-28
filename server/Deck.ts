@@ -15,8 +15,8 @@ export default class Deck {
 
   constructor() {}
 
-  generateDeck() {
-    this.cards = [];
+  generateDeck(clear = true) {
+    if (clear) this.cards = [];
 
     colors.forEach((color) => {
       // create 0
